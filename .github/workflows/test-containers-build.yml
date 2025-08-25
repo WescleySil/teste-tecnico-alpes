@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Ajusta permissões do projeto
+        run: sudo chown -R 1000:1000 .
+
       - name: Ajusta permissão de execução do startup.sh
         run: |
           chmod +x startup.sh
