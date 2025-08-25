@@ -8,7 +8,7 @@ BRANCH=main
 
 # Criar a chave PEM a partir do secret
 
-echo $AWS_KEY > aws_key.pem
+echo -e "$AWS_KEY" > aws_key.pem
 
 chmod 400 aws_key.pem
 
