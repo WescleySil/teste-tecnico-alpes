@@ -24,6 +24,9 @@ jobs:
         run: |
           docker compose restart
 
+      - name: Atraso de 30 segundos para a execução do startup.sh
+        run: sleep 30s
+
       - name: Curl into nginx server
         run: |
           curl -X GET -G -H "Accept: application/json" http://localhost:8000
