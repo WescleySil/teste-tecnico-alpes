@@ -4,6 +4,7 @@ services:
             context: .
             dockerfile: Dockerfile
         restart: unless-stopped
+        container_name: app
         working_dir: /var/www
         volumes:
             - ./:/var/www
@@ -13,6 +14,7 @@ services:
     nginx:
         image: nginx:alpine
         restart: unless-stopped
+        container_name: nginx
         ports:
             - "8000:8000"
         volumes:
@@ -23,6 +25,7 @@ services:
 
     mysql:
         image: mysql:8.0
+        container_name: mysql
         ports:
             - "3307:3306"
         environment:
@@ -35,6 +38,7 @@ services:
 
     redis:
         image: redis:latest
+        container_name: redis
         restart: unless-stopped
         ports:
             - "6379:6379"
