@@ -51,6 +51,15 @@ services:
         networks:
             - laravel
 
+    certbot:
+        image: certbot/certbot
+        container_name: certbot
+        volumes:
+            - ./docker/certbot/www:/var/www/certbot
+            - ./docker/certbot/conf:/etc/letsencrypt
+        entrypoint: >
+            sh -c "trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done"
+
 volumes:
     dbdata:
 
