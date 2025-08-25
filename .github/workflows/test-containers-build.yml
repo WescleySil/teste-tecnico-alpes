@@ -20,7 +20,7 @@ jobs:
 
       - name: Ajusta permissão de execução do startup.sh
         run: |
-          chmod +x startup.sh
+          sudo chmod +x startup.sh
 
       - name: Inicia containers do docker compose
         run: |
