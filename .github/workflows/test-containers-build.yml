@@ -28,6 +28,10 @@ jobs:
 
       - name: Executa startup.sh no container da aplicação
         run: |
+          docker compose exec app composer install --no-dev
+
+      - name: Executa startup.sh no container da aplicação
+        run: |
           docker compose exec app ./startup.sh
 
       - name: Verifica status dos containers
