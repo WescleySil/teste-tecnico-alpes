@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Permissão para executar script
+        run: sudo chmod +x .github/scripts/deploy.sh
+
       - name: Executar script de deploy
         env:
           AWS_KEY: ${{secrets.AWS_KEY}}
