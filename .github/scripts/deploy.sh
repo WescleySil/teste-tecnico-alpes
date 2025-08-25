@@ -7,7 +7,6 @@ GIT_REPO=https://github.com/WescleySil/teste-tecnico-alpes.git
 BRANCH=main
 
 # Criar a chave PEM a partir do secret
-touch aws_key.pem
 
 echo $AWS_KEY > aws_key.pem
 
