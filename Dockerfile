@@ -31,6 +31,8 @@ WORKDIR /var/www
 COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
 COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN chown -R $user:$user /var/www
+
 USER $user
 
 ENTRYPOINT ["bash", "./startup.sh"]
