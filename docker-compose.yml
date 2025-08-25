@@ -14,20 +14,20 @@ services:
             -   mysql
 
     nginx:
-        image: nginx:alpine
+        image: nginx:latest
         restart: unless-stopped
         container_name: nginx
         ports:
             - "80:80"
             - "443:443"
         volumes:
-            - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
+            - ./docker/certbot/www/:/var/www/certbot/
+            - ./:/var/www
         networks:
             - laravel
         depends_on:
-             app:
-                 condition: service_started
+            - app
 
     mysql:
         image: mysql:8.0
@@ -52,11 +52,11 @@ services:
             - laravel
 
     certbot:
-        image: certbot/certbot
+        image: certbot/certbot:latest
         container_name: certbot
         volumes:
-            - ./docker/certbot/www:/var/www/certbot
-            - ./docker/certbot/conf:/etc/letsencrypt
+            - ./docker/certbot/www/:/var/www/certbot/
+            - ./docker/certbot/conf/:/etc/letsencrypt/
         entrypoint: >
             sh -c "trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done"
 
