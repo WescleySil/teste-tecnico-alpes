@@ -1,0 +1,20 @@
+name: deploy-workflow.yml
+on:
+  push:
+    branches:
+      - test-workflow-github
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Executar script de deploy
+        env:
+          AWS_KEY: ${{secrets.AWS_KEY}}
+          AWS_USER: ${{secrets.AWS_USER}}
+          AWS_HOST: ${{secrets.AWS_HOST}}
+        run: ../scripts/deploy.sh
+
