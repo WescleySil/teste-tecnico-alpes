@@ -15,13 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Ajusta permissão de execução do startup.sh
+        run: |
+          chmod +x startup.sh
+
       - name: Inicia containers do docker compose
         run: |
           docker compose up -d
-
-      - name: Ajusta permissão de execução do startup.sh
-        run: |
-          docker compose exec app chmod +x startup.sh
 
       - name: Executa startup.sh no container da aplicação
         run: |
