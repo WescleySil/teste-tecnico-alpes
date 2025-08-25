@@ -16,5 +16,5 @@ jobs:
           AWS_KEY: ${{secrets.AWS_KEY}}
           AWS_USER: ${{secrets.AWS_USER}}
           AWS_HOST: ${{secrets.AWS_HOST}}
-        run: ../scripts/deploy.sh
+        run: ./.github/scripts/deploy.sh
 
