@@ -2,7 +2,7 @@
 
 EC2_USER=$AWS_USER
 EC2_HOST=$AWS_HOST
-EC2_PATH=/apps/
+EC2_PATH=~/apps/
 GIT_REPO=https://github.com/WescleySil/teste-tecnico-alpes.git
 BRANCH=main
 
