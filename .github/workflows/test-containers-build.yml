@@ -20,12 +20,8 @@ jobs:
         with:
           compose-file: './docker-compose.yml'
 
-      - name: Restart docker containers
-        run: |
-          docker compose restart
-
-      - name: Atraso de 30 segundos para a execução do startup.sh
-        run: sleep 30s
+      - name: Atraso de 1 minuto para a execução do startup.sh
+        run: sleep 60s
 
       - name: Curl into nginx server
         run: |

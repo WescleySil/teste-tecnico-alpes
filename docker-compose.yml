@@ -10,6 +10,8 @@ services:
             - ./:/var/www
         networks:
             - laravel
+        depends_on:
+            -   mysql
 
     nginx:
         image: nginx:alpine
@@ -22,6 +24,9 @@ services:
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
             - laravel
+        depends_on:
+             app:
+                 condition: service_started
 
     mysql:
         image: mysql:8.0
