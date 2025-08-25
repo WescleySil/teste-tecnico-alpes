@@ -11,6 +11,8 @@ touch aws_key.pem
 
 echo $AWS_KEY > aws_key.pem
 
+chmod 400 aws_key.pem
+
 echo "🚀 Iniciando deploy para $EC2_HOST ..."
 
 ssh -i aws_key.pem -o StrictHostKeyChecking=no -T $EC2_USER@$EC2_HOST << EOF
