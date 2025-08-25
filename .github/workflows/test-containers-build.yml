@@ -15,15 +15,19 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Start docker containers
+      - name: Inicia containers do docker compose
         uses: hoverkraft-tech/compose-action@v2.3.0
         with:
           compose-file: './docker-compose.yml'
 
+      - name: Verifica status dos containers
+        run: |
+          docker compose ps
+
       - name: Atraso de 1 minuto para a execução do startup.sh
         run: sleep 60s
 
-      - name: Curl into nginx server
+      - name: Requisição para localhost:8000 para verificar estado da aplicação
         run: |
           curl -X GET -G -H "Accept: application/json" http://localhost:8000
 
