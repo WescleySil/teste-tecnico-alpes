@@ -7,7 +7,14 @@ use Illuminate\Support\Facades\DB;
 
 class UpdateAnnouncementPhotoService
 {
-    public function run(AnnouncementPhoto $announcementPhoto, array $data): AnnouncementPhoto
+    private AnnouncementPhoto $announcementPhotoModel;
+
+    public function __construct(AnnouncementPhoto $announcementPhotoModel)
+    {
+        $this->announcementPhotoModel = $announcementPhotoModel;
+    }
+
+    public function run($announcementPhoto, array $data): AnnouncementPhoto
     {
         if (!isset($data['position']) || $announcementPhoto->position === $data['position']) {
             $announcementPhoto->update($data);
@@ -18,7 +25,7 @@ class UpdateAnnouncementPhotoService
             $newPosition = $data['position'];
             $oldPosition = $announcementPhoto->position;
 
-            $otherPhoto = AnnouncementPhoto::query()
+            $otherPhoto = $this->announcementPhotoModel->query()
                 ->where('vehicle_announcement_id', $announcementPhoto->vehicle_announcement_id)
                 ->where('position', $newPosition)
                 ->first();

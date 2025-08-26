@@ -7,7 +7,14 @@ use Illuminate\Support\Facades\DB;
 
 class DestroyAnnouncementPhotoService
 {
-    public function run(AnnouncementPhoto $announcementPhoto): array
+    private AnnouncementPhoto $announcementPhotoModel;
+
+    public function __construct(AnnouncementPhoto $announcementPhotoModel)
+    {
+        $this->announcementPhotoModel = $announcementPhotoModel;
+    }
+
+    public function run($announcementPhoto): array
     {
         DB::transaction(function () use ($announcementPhoto) {
             $vehicleAnnouncementId = $announcementPhoto->vehicle_announcement_id;
@@ -15,14 +22,14 @@ class DestroyAnnouncementPhotoService
 
             $announcementPhoto->delete();
 
-            $photosToReorder = AnnouncementPhoto::query()
+            $photosToReorder = $this->announcementPhotoModel->query()
                 ->where('vehicle_announcement_id', $vehicleAnnouncementId)
                 ->where('position', '>', $deletedPosition)
                 ->orderBy('position', 'asc')
                 ->get();
 
             foreach ($photosToReorder as $photo) {
-                $photo->decrement('position');
+                $photo->update(['position' => $photo->position - 1]);
             }
         });
 

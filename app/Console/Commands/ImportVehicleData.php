@@ -8,6 +8,7 @@ use App\Models\VehicleAnnouncement;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Exception;
 
 class ImportVehicleData extends Command
 {
@@ -20,7 +21,7 @@ class ImportVehicleData extends Command
         $url = "https://hub.alpes.one/api/v1/integrator/export/1902";
 
         try {
-            $response = Http::get($url);
+            $response = Http::get($url)->throw();
             $jsonData = $response->json();
 
             DB::transaction(function () use ($jsonData) {
