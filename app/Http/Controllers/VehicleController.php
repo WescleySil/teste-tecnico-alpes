@@ -2,48 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Vehicle\IndexVehicleRequest;
+use App\Http\Requests\Vehicle\StoreVehicleRequest;
+use App\Http\Requests\Vehicle\UpdateVehicleRequest;
+use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
-use Illuminate\Http\Request;
+use App\Services\Vehicle\DestroyVehicleService;
+use App\Services\Vehicle\IndexVehicleService;
+use App\Services\Vehicle\StoreVehicleService;
+use App\Services\Vehicle\UpdateVehicleService;
 
 class VehicleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(
+        IndexVehicleRequest $request,
+        IndexVehicleService $service
+    )
     {
-        //
+        $data = $request->validated();
+        $vehicles = $service->run($data);
+
+        return VehicleResource::collection($vehicles);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(
+        StoreVehicleRequest $request,
+        StoreVehicleService $service
+    )
     {
-        //
+        $data = $request->validated();
+        $vehicle = $service->run($data);
+
+        return response()->json(new VehicleResource($vehicle),201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Vehicle $Vehicle)
+    public function update(
+        UpdateVehicleRequest $request,
+        UpdateVehicleService $service,
+        Vehicle $vehicle
+    )
     {
-        //
+        $data = $request->validated();
+        $vehicle = $service->run($vehicle, $data);
+
+        return response()->json(new VehicleResource($vehicle), 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Vehicle $Vehicle)
+    public function destroy(
+        DestroyVehicleService $service,
+        Vehicle $vehicle
+    )
     {
-        //
-    }
+        $response = $service->run($vehicle);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Vehicle $Vehicle)
-    {
-        //
+        return response()->json($response);
     }
 }

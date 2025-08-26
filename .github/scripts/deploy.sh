@@ -4,7 +4,7 @@ EC2_USER=$AWS_USER
 EC2_HOST=$AWS_HOST
 EC2_PATH=/home/$EC2_USER/apps/
 GIT_REPO=https://github.com/WescleySil/teste-tecnico-alpes.git
-BRANCH=test-workflow-github
+BRANCH=main
 
 # Criar a chave PEM a partir do secret
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('external_id')->unique();
+            $table->unsignedInteger('external_id')->unique()->nullable();
             $table->string('type');
             $table->string('brand');
             $table->string('model');

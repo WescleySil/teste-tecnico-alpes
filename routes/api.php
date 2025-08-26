@@ -3,7 +3,6 @@
 use App\Http\Controllers\AnnouncementPhotoController;
 use App\Http\Controllers\VehicleAnnouncementController;
 use App\Http\Controllers\VehicleController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('vehicles')->group(function () {

@@ -2,7 +2,7 @@ name: deploy-workflow.yml
 on:
   push:
     branches:
-      - test-workflow-github
+      - main
 
 jobs:
   deploy:
