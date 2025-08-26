@@ -1,0 +1,23 @@
+name: deploy-workflow.yml
+on:
+  push:
+    branches:
+      - test-workflow-github
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Permissão para executar script
+        run: sudo chmod +x .github/scripts/deploy.sh
+
+      - name: Executar script de deploy
+        env:
+          AWS_KEY: ${{secrets.AWS_KEY}}
+          AWS_USER: ${{secrets.AWS_USER}}
+          AWS_HOST: ${{secrets.AWS_HOST}}
+        run: ./.github/scripts/deploy.sh
+
