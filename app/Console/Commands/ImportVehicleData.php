@@ -8,7 +8,6 @@ use App\Models\VehicleAnnouncement;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Exception;
 
 class ImportVehicleData extends Command
 {
@@ -80,7 +79,7 @@ class ImportVehicleData extends Command
 
             $this->info('Dados importados com sucesso!');
 
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             $this->error('Erro ao importar os dados: '. $e->getMessage());
         }
     }

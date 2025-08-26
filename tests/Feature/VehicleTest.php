@@ -1,13 +1,23 @@
 <?php
 
+use App\Models\User;
 use App\Models\Vehicle;
+use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
+use Laravel\Sanctum\Sanctum;
 
-uses(RefreshDatabase::class);
+beforeEach(function () {
+    Artisan::call('db:wipe');
+    Artisan::call('migrate');
+    (new UserSeeder())->run();
+});
 
 describe('Testes de CRUD para a API de Veículos', function () {
 
     it('deve listar os veículos com paginação e ordenação', function () {
+        $user = User::all()->first();
+        Sanctum::actingAs($user);
         Vehicle::factory()->create(['brand' => 'Ford']);
         Vehicle::factory()->create(['brand' => 'Chevrolet']);
         Vehicle::factory()->create(['brand' => 'Audi']);
@@ -23,6 +33,8 @@ describe('Testes de CRUD para a API de Veículos', function () {
     });
 
     it('deve criar um novo veículo', function () {
+        $user = User::all()->first();
+        Sanctum::actingAs($user);
         $payload = [
             'type' => 'Car',
             'brand' => 'Volkswagen',
@@ -47,6 +59,8 @@ describe('Testes de CRUD para a API de Veículos', function () {
     });
 
     it('deve atualizar um veículo existente', function () {
+        $user = User::all()->first();
+        Sanctum::actingAs($user);
         $vehicle = Vehicle::factory()->create(['color' => 'Red']);
 
         $payload = [
@@ -67,6 +81,8 @@ describe('Testes de CRUD para a API de Veículos', function () {
     });
 
     it('deve deletar um veículo', function () {
+        $user = User::all()->first();
+        Sanctum::actingAs($user);
         $vehicle = Vehicle::factory()->create();
 
         $response = $this->deleteJson("/api/vehicles/{$vehicle->id}");

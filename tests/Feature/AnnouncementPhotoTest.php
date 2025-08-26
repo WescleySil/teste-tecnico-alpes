@@ -1,14 +1,24 @@
 <?php
 
 use App\Models\AnnouncementPhoto;
+use App\Models\User;
 use App\Models\VehicleAnnouncement;
+use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
+use Laravel\Sanctum\Sanctum;
 
-uses(RefreshDatabase::class);
+beforeEach(function () {
+    Artisan::call('db:wipe');
+    Artisan::call('migrate');
+    (new UserSeeder())->run();
+});
 
 describe('Testes de CRUD para Fotos de Anúncio', function () {
 
     it('deve listar as fotos do anúncio com paginação e ordenação', function () {
+        $user = User::all()->first();
+        Sanctum::actingAs($user);
         $announcement = VehicleAnnouncement::factory()->create();
         AnnouncementPhoto::factory()->create(['vehicle_announcement_id' => $announcement->id, 'position' => 2]);
         AnnouncementPhoto::factory()->create(['vehicle_announcement_id' => $announcement->id, 'position' => 3]);
@@ -25,6 +35,8 @@ describe('Testes de CRUD para Fotos de Anúncio', function () {
     });
 
     it('deve ser capaz de criar múltiplas fotos de anúncio de uma só vez', function () {
+        $user = User::all()->first();
+        Sanctum::actingAs($user);
         $announcement = VehicleAnnouncement::factory()->create();
 
         $payload = [
@@ -45,6 +57,8 @@ describe('Testes de CRUD para Fotos de Anúncio', function () {
     });
 
     it('não deve criar fotos com posições duplicadas na mesma requisição', function () {
+        $user = User::all()->first();
+        Sanctum::actingAs($user);
         $announcement = VehicleAnnouncement::factory()->create();
 
         $payload = [
@@ -62,6 +76,8 @@ describe('Testes de CRUD para Fotos de Anúncio', function () {
     });
 
     it('deve trocar as posições ao atualizar uma foto para uma posição já existente', function () {
+        $user = User::all()->first();
+        Sanctum::actingAs($user);
         $announcement = VehicleAnnouncement::factory()->create();
         $photoA = AnnouncementPhoto::factory()->create(['vehicle_announcement_id' => $announcement->id, 'position' => 1]);
         $photoB = AnnouncementPhoto::factory()->create(['vehicle_announcement_id' => $announcement->id, 'position' => 2]);
@@ -75,6 +91,8 @@ describe('Testes de CRUD para Fotos de Anúncio', function () {
     });
 
     it('deve reordenar as fotos subsequentes quando uma foto é deletada', function () {
+        $user = User::all()->first();
+        Sanctum::actingAs($user);
         $announcement = VehicleAnnouncement::factory()->create();
         $photo1 = AnnouncementPhoto::factory()->create(['vehicle_announcement_id' => $announcement->id, 'position' => 1]);
         $photo2 = AnnouncementPhoto::factory()->create(['vehicle_announcement_id' => $announcement->id, 'position' => 2]);
