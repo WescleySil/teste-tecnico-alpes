@@ -13,7 +13,7 @@ class LoginService
 
         return [
             'token' => $token,
-            'user' => $user
+            'user' => $user,
         ];
     }
 }

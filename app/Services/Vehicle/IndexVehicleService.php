@@ -6,7 +6,7 @@ use App\Models\Vehicle;
 
 class IndexVehicleService
 {
-    public function run (array $data)
+    public function run(array $data)
     {
         $orderByColumn = $data['order_by']['column'] ?? 'id';
         $orderByDirection = $data['order_by']['direction'] ?? 'asc';

@@ -12,7 +12,6 @@ use App\Services\User\IndexUserService;
 use App\Services\User\StoreUserService;
 use App\Services\User\UpdateUserService;
 
-
 class UserController
 {
     public function index(

@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Artisan;
 beforeEach(function () {
     Artisan::call('db:wipe');
     Artisan::call('migrate');
-    (new UserSeeder())->run();
+    (new UserSeeder)->run();
 });
 
-describe("Teste de autenticação", function () {
+describe('Teste de autenticação', function () {
     test('user can login with correct credentials', function () {
         $this->postJson('/api/login', [
             'login' => 'admin',
@@ -52,7 +52,7 @@ describe("Teste de autenticação", function () {
 
         $this->assertDatabaseMissing('personal_access_tokens', [
             'tokenable_id' => $admin->id,
-            'name' => 'test-token'
+            'name' => 'test-token',
         ]);
     });
 });

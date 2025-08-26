@@ -12,8 +12,7 @@ class AuthController extends Controller
     public function login(
         LoginRequest $request,
         LoginService $service
-    )
-    {
+    ) {
         $data = $request->validated();
         $user = $service->run($data);
 
@@ -25,7 +24,7 @@ class AuthController extends Controller
         $user = Auth::user();
 
         return response()->json([
-            'data' => $user
+            'data' => $user,
         ]);
     }
 

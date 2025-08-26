@@ -15,7 +15,7 @@ class AnnouncementPhotoFactory extends Factory
 
         return [
             'vehicle_announcement_id' => VehicleAnnouncement::factory(),
-            'photo_url' => 'http://example.com/photo' . self::$sequence . '.jpg',
+            'photo_url' => 'http://example.com/photo'.self::$sequence.'.jpg',
             'position' => self::$sequence,
         ];
     }

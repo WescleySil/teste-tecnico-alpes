@@ -11,7 +11,7 @@ class IndexVehicleAnnouncementRequest extends FormRequest
         return [
             'order_by.column' => ['sometimes', 'string'],
             'order_by.direction' => ['sometimes', 'in:asc,desc'],
-            'per_page' => ['sometimes' ,'integer']
+            'per_page' => ['sometimes', 'integer'],
         ];
     }
 }

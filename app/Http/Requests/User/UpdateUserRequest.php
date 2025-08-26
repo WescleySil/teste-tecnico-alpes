@@ -11,10 +11,10 @@ class UpdateUserRequest extends FormRequest
         $userId = $this->route('user')->id ?? null;
 
         return [
-            'name' => ['sometimes','nullable','string'],
-            'username' => ['sometimes','nullable','string', 'unique:users,username,' . $userId],
-            'email' => ['sometimes','nullable','email', 'unique:users,email,' . $userId],
-            'password' => ['sometimes','nullable','string', 'min:8'],
+            'name' => ['sometimes', 'nullable', 'string'],
+            'username' => ['sometimes', 'nullable', 'string', 'unique:users,username,'.$userId],
+            'email' => ['sometimes', 'nullable', 'email', 'unique:users,email,'.$userId],
+            'password' => ['sometimes', 'nullable', 'string', 'min:8'],
         ];
     }
 }

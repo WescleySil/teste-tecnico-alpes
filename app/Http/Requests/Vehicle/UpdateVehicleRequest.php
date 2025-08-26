@@ -9,7 +9,7 @@ class UpdateVehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => ['sometimes' ,'string', 'min:3'],
+            'type' => ['sometimes', 'string', 'min:3'],
             'brand' => ['sometimes', 'string', 'min:3'],
             'model' => ['sometimes', 'string', 'min:3'],
             'version' => ['sometimes', 'string', 'min:3'],
@@ -32,7 +32,7 @@ class UpdateVehicleRequest extends FormRequest
             'required' => 'O campo :attribute é obrigatório',
             'min' => 'O campo :attribute tem que ter no minimo :min caracteres',
             'max' => 'O campo :attribute so pode ter no maximo :max caracteres',
-            'integer' => 'O campo :attribute so aceita numeros'
+            'integer' => 'O campo :attribute so aceita numeros',
         ];
     }
 }

@@ -4,14 +4,13 @@ use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleAnnouncement;
 use Database\Seeders\UserSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Sanctum\Sanctum;
 
 beforeEach(function () {
     Artisan::call('db:wipe');
     Artisan::call('migrate');
-    (new UserSeeder())->run();
+    (new UserSeeder)->run();
 });
 
 describe('Testes de CRUD de Anúncio de Veículo', function () {

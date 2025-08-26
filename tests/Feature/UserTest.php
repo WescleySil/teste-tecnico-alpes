@@ -1,17 +1,17 @@
 <?php
 
 use App\Models\User;
-use Laravel\Sanctum\Sanctum;
 use Database\Seeders\UserSeeder;
 use Illuminate\Support\Facades\Artisan;
+use Laravel\Sanctum\Sanctum;
 
 beforeEach(function () {
     Artisan::call('db:wipe');
     Artisan::call('migrate');
-    (new UserSeeder())->run();
+    (new UserSeeder)->run();
 });
 
-describe("Teste de CRUD para Usuarios", function () {
+describe('Teste de CRUD para Usuarios', function () {
     test('an user can create a new user', function () {
         $user = User::all()->first();
         Sanctum::actingAs($user);
@@ -61,8 +61,8 @@ describe("Teste de CRUD para Usuarios", function () {
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
-                    '*' => ['id', 'name', 'username', 'email']
-                ]
+                    '*' => ['id', 'name', 'username', 'email'],
+                ],
             ]);
     });
 
@@ -76,7 +76,7 @@ describe("Teste de CRUD para Usuarios", function () {
             'email' => 'updated@example.com',
         ];
 
-        $this->putJson('/api/user/' . $userToUpdate->id, $updateData)
+        $this->putJson('/api/user/'.$userToUpdate->id, $updateData)
             ->assertStatus(200)
             ->assertJsonFragment(['email' => 'updated@example.com']);
 
@@ -92,7 +92,7 @@ describe("Teste de CRUD para Usuarios", function () {
         $user = User::all()->first();
         Sanctum::actingAs($user);
 
-        $this->deleteJson('/api/user/' . $userToDelete->id)
+        $this->deleteJson('/api/user/'.$userToDelete->id)
             ->assertStatus(204);
 
         $this->assertDatabaseMissing('users', [

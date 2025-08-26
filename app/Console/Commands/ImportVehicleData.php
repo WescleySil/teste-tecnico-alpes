@@ -17,7 +17,7 @@ class ImportVehicleData extends Command
 
     public function handle()
     {
-        $url = "https://hub.alpes.one/api/v1/integrator/export/1902";
+        $url = 'https://hub.alpes.one/api/v1/integrator/export/1902';
 
         try {
             $response = Http::get($url)->throw();
@@ -27,7 +27,7 @@ class ImportVehicleData extends Command
 
                 foreach ($jsonData as $data) {
                     $vehicle = Vehicle::firstOrNew([
-                        'external_id' => $data['id']
+                        'external_id' => $data['id'],
                     ]);
                     $vehicle->fill([
                         'type' => $data['type'],
@@ -80,7 +80,7 @@ class ImportVehicleData extends Command
             $this->info('Dados importados com sucesso!');
 
         } catch (\Exception $e) {
-            $this->error('Erro ao importar os dados: '. $e->getMessage());
+            $this->error('Erro ao importar os dados: '.$e->getMessage());
         }
     }
 }

@@ -16,8 +16,9 @@ class UpdateAnnouncementPhotoService
 
     public function run($announcementPhoto, array $data): AnnouncementPhoto
     {
-        if (!isset($data['position']) || $announcementPhoto->position === $data['position']) {
+        if (! isset($data['position']) || $announcementPhoto->position === $data['position']) {
             $announcementPhoto->update($data);
+
             return $announcementPhoto->fresh();
         }
 

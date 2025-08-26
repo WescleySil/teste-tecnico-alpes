@@ -3,14 +3,13 @@
 use App\Models\User;
 use App\Models\Vehicle;
 use Database\Seeders\UserSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Sanctum\Sanctum;
 
 beforeEach(function () {
     Artisan::call('db:wipe');
     Artisan::call('migrate');
-    (new UserSeeder())->run();
+    (new UserSeeder)->run();
 });
 
 describe('Testes de CRUD para a API de Veículos', function () {

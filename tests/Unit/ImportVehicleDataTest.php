@@ -37,8 +37,8 @@ describe('Testes do Comando de Importação de Veículos', function () {
                     ],
                     'created' => now()->toDateTimeString(),
                     'updated' => now()->toDateTimeString(),
-                ]
-            ], 200)
+                ],
+            ], 200),
         ]);
 
         $this->artisan('vehicle:import-data')
@@ -69,7 +69,7 @@ describe('Testes do Comando de Importação de Veículos', function () {
 
     it('deve lidar com uma falha na API', function () {
         Http::fake([
-            'https://hub.alpes.one/api/v1/integrator/export/1902' => Http::response(null, 500)
+            'https://hub.alpes.one/api/v1/integrator/export/1902' => Http::response(null, 500),
         ]);
 
         $this->artisan('vehicle:import-data')

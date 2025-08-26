@@ -17,8 +17,7 @@ class VehicleAnnouncementController extends Controller
     public function index(
         IndexVehicleAnnouncementRequest $request,
         IndexVehicleAnnouncementService $service
-    )
-    {
+    ) {
         $data = $request->validated();
         $vehicleAnnouncements = $service->run($data);
 
@@ -28,20 +27,18 @@ class VehicleAnnouncementController extends Controller
     public function store(
         StoreVehicleAnnouncementRequest $request,
         StoreVehicleAnnouncementService $service
-    )
-    {
+    ) {
         $data = $request->validated();
         $vehicleAnnouncement = $service->run($data);
 
-        return response()->json(new VehicleAnnouncementResource($vehicleAnnouncement),201);
+        return response()->json(new VehicleAnnouncementResource($vehicleAnnouncement), 201);
     }
 
     public function update(
         UpdateVehicleAnnouncementRequest $request,
         UpdateVehicleAnnouncementService $service,
         VehicleAnnouncement $vehicleAnnouncement
-    )
-    {
+    ) {
         $data = $request->validated();
         $vehicleAnnouncement = $service->run($vehicleAnnouncement, $data);
 
@@ -51,8 +48,7 @@ class VehicleAnnouncementController extends Controller
     public function destroy(
         DestroyVehicleAnnouncementService $service,
         VehicleAnnouncement $vehicleAnnouncement
-    )
-    {
+    ) {
         $response = $service->run($vehicleAnnouncement);
 
         return response()->json($response);
