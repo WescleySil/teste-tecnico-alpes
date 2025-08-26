@@ -1,0 +1,861 @@
+{
+	"info": {
+		"_postman_id": "88c3a31c-7daf-4974-b9dd-8abee628b1cf",
+		"name": "Vehicle API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45259582"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "login",
+									"value": "admin@admin.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicles",
+			"item": [
+				{
+					"name": "Get vehicles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vehicles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vehicles"
+							],
+							"query": [
+								{
+									"key": "order_by[column]",
+									"value": "year",
+									"disabled": true
+								},
+								{
+									"key": "order_by[direction]",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vehicle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"carro\",\r\n  \"brand\": \"Toyota\",\r\n  \"model\": \"Corolla\",\r\n  \"version\": \"XEi\",\r\n  \"year\": {\r\n    \"model\": \"2024\",\r\n    \"build\": \"2024\"\r\n  },\r\n  \"doors\": 4,\r\n  \"board\": \"ABC1D23\",\r\n  \"chassi\": \"1A2B3C4D5E6F7G8H9\",\r\n  \"transmission\": \"automático\",\r\n  \"color\": \"preto\",\r\n  \"fuel\": \"flex\",\r\n  \"category\": \"sedan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/vehicles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vehicles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n//   \"type\": \"carro\",\r\n//   \"brand\": \"Toyota\",\r\n//   \"model\": \"Corolla\",\r\n//   \"version\": \"XEi\",\r\n  \"year\": {\r\n    \"model\": \"2025\",\r\n    \"build\": \"2025\"\r\n  }\r\n//   \"doors\": 4\r\n//   \"board\": \"ABC1D23\",\r\n//   \"chassi\": \"1A2B3C4D5E6F7G8H9\",\r\n//   \"transmission\": \"automático\",\r\n//   \"color\": \"preto\",\r\n//   \"fuel\": \"flex\",\r\n//   \"category\": \"sedan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/vehicles/:vehicle",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vehicles",
+								":vehicle"
+							],
+							"variable": [
+								{
+									"key": "vehicle",
+									"value": "41"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vehicle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vehicles/:vehicle",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vehicles",
+								":vehicle"
+							],
+							"variable": [
+								{
+									"key": "vehicle",
+									"value": "42"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicles Announcements",
+			"item": [
+				{
+					"name": "Get vehicle announcements",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vehicle-announcements?order_by[column]=price&order_by[direction]=desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vehicle-announcements"
+							],
+							"query": [
+								{
+									"key": "order_by[column]",
+									"value": "price"
+								},
+								{
+									"key": "order_by[direction]",
+									"value": "desc"
+								},
+								{
+									"key": "per_page",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vehicle announcement",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"vehicle_id\": 41,\r\n  \"description\": \"Anúncio do veículo Toyota Corolla XEi 2024, em excelente estado de conservação, com todos os opcionais de fábrica.\",\r\n  \"price\": 125000.00,\r\n  \"old_price\": null,\r\n  \"sold\": false,\r\n  \"url_car\": \"https://www.exemplo.com/anuncios/veiculo-41\",\r\n  \"optionals\": [\r\n    \"Teto solar\",\r\n    \"Bancos de couro\",\r\n    \"Kit multimídia\",\r\n    \"Câmera de ré\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}/vehicle-announcements",
+							"host": [
+								"{{url}"
+							],
+							"path": [
+								"vehicle-announcements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle announcement",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n//   \"vehicle_id\": 41,\r\n//   \"description\": \"Anúncio do veículo Toyota Corolla XEi 2024, em excelente estado de conservação, com todos os opcionais de fábrica.\",\r\n//   \"price\": 125000.00,\r\n//   \"old_price\": null,\r\n  \"sold\": true\r\n//   \"url_car\": \"https://www.exemplo.com/anuncios/veiculo-41\",\r\n//   \"optionals\": [\r\n//     \"Teto solar\",\r\n//     \"Bancos de couro\",\r\n//     \"Kit multimídia\",\r\n//     \"Câmera de ré\"\r\n//   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/vehicle-announcements/:vehicle-announcement-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vehicle-announcements",
+								":vehicle-announcement-id"
+							],
+							"variable": [
+								{
+									"key": "vehicle-announcement-id",
+									"value": "40"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vehicle announcement",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/vehicle-announcements/:vehicle-announcement-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"vehicle-announcements",
+								":vehicle-announcement-id"
+							],
+							"variable": [
+								{
+									"key": "vehicle-announcement-id",
+									"value": "39"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicles Announcements Photos",
+			"item": [
+				{
+					"name": "Get vehicle announcements",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/announcement-photos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"announcement-photos"
+							],
+							"query": [
+								{
+									"key": "order_by[column]",
+									"value": "price",
+									"disabled": true
+								},
+								{
+									"key": "order_by[direction]",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "per_page",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vehicle announcement photo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"vehicle_announcement_id\": 40,\r\n  \"photos\": [\r\n    {\r\n      \"photo_url\": \"https://via.placeholder.com/1024x768.png/0000FF/FFFFFF?Text=Foto+1\",\r\n      \"position\": 1\r\n    },\r\n    {\r\n      \"photo_url\": \"https://via.placeholder.com/1024x768.png/FF0000/FFFFFF?Text=Foto+2\",\r\n      \"position\": 2\r\n    },\r\n    {\r\n      \"photo_url\": \"https://via.placeholder.com/1024x768.png/00FF00/FFFFFF?Text=Foto+3\",\r\n      \"position\": 3\r\n    },\r\n    {\r\n      \"photo_url\": \"https://via.placeholder.com/1024x768.png/FFFF00/000000?Text=Foto+4\",\r\n      \"position\": 4\r\n    },\r\n    {\r\n      \"photo_url\": \"https://via.placeholder.com/1024x768.png/FFA500/FFFFFF?Text=Foto+5\",\r\n      \"position\": 5\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/announcement-photos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"announcement-photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vehicle announcement photo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"photo_url\": \"https://via.placeholder.com/1024x768.png/FF0000/FFFFFF?Text=Nova+Foto+Principal\",\r\n  \"position\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/announcement-photos/:vehicle-announcement-photo-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"announcement-photos",
+								":vehicle-announcement-photo-id"
+							],
+							"variable": [
+								{
+									"key": "vehicle-announcement-photo-id",
+									"value": "416"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vehicle announcement photo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/announcement-photos/:vehicle-announcement-photo-id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"announcement-photos",
+								":vehicle-announcement-photo-id"
+							],
+							"variable": [
+								{
+									"key": "vehicle-announcement-photo-id",
+									"value": "415"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Index User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user?per_page=&search=&type=&order_by=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": ""
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "type",
+									"value": ""
+								},
+								{
+									"key": "order_by",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "wescley silva de castro",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "wescley",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "wescley@gmail.com1",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user/:userid",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								":userid"
+							],
+							"variable": [
+								{
+									"key": "userid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/:userid",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								":userid"
+							],
+							"variable": [
+								{
+									"key": "userid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
