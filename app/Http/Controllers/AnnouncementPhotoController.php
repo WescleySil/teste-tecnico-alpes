@@ -2,48 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AnnouncementPhoto\IndexAnnouncementPhotoRequest;
+use App\Http\Requests\AnnouncementPhoto\StoreAnnouncementPhotoRequest;
+use App\Http\Requests\AnnouncementPhoto\UpdateAnnouncementPhotoRequest;
+use App\Http\Resources\AnnouncementPhotoResource;
 use App\Models\AnnouncementPhoto;
-use Illuminate\Http\Request;
+use App\Services\AnnouncementPhoto\DestroyAnnouncementPhotoService;
+use App\Services\AnnouncementPhoto\IndexAnnouncementPhotoService;
+use App\Services\AnnouncementPhoto\StoreAnnouncementPhotoService;
+use App\Services\AnnouncementPhoto\UpdateAnnouncementPhotoService;
 
 class AnnouncementPhotoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(
+        IndexAnnouncementPhotoRequest $request,
+        IndexAnnouncementPhotoService $service
+    )
     {
-        //
+        $data = $request->validated();
+        $announcementPhotos = $service->run($data);
+
+        return AnnouncementPhotoResource::collection($announcementPhotos);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(
+        StoreAnnouncementPhotoRequest $request,
+        StoreAnnouncementPhotoService $service
+    )
     {
-        //
+        $data = $request->validated();
+        $announcementPhotos = $service->run($data);
+
+        return response()->json(AnnouncementPhotoResource::collection($announcementPhotos), 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(AnnouncementPhoto $announcementPhoto)
+    public function update(
+        UpdateAnnouncementPhotoRequest $request,
+        UpdateAnnouncementPhotoService $service,
+        AnnouncementPhoto $announcementPhoto
+    )
     {
-        //
+        $data = $request->validated();
+        $announcementPhoto = $service->run($announcementPhoto, $data);
+
+        return response()->json(new AnnouncementPhotoResource($announcementPhoto), 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, AnnouncementPhoto $announcementPhoto)
+    public function destroy(
+        DestroyAnnouncementPhotoService $service,
+        AnnouncementPhoto $announcementPhoto
+    )
     {
-        //
-    }
+        $response = $service->run($announcementPhoto);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(AnnouncementPhoto $announcementPhoto)
-    {
-        //
+        return response()->json($response);
     }
 }

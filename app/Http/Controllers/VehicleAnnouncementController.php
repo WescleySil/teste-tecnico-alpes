@@ -2,48 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VehicleAnnouncement\IndexVehicleAnnouncementRequest;
+use App\Http\Requests\VehicleAnnouncement\StoreVehicleAnnouncementRequest;
+use App\Http\Requests\VehicleAnnouncement\UpdateVehicleAnnouncementRequest;
+use App\Http\Resources\VehicleAnnouncementResource;
 use App\Models\VehicleAnnouncement;
-use Illuminate\Http\Request;
+use App\Services\VehicleAnnouncement\DestroyVehicleAnnouncementService;
+use App\Services\VehicleAnnouncement\IndexVehicleAnnouncementService;
+use App\Services\VehicleAnnouncement\StoreVehicleAnnouncementService;
+use App\Services\VehicleAnnouncement\UpdateVehicleAnnouncementService;
 
 class VehicleAnnouncementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(
+        IndexVehicleAnnouncementRequest $request,
+        IndexVehicleAnnouncementService $service
+    )
     {
-        //
+        $data = $request->validated();
+        $vehicleAnnouncements = $service->run($data);
+
+        return VehicleAnnouncementResource::collection($vehicleAnnouncements);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(
+        StoreVehicleAnnouncementRequest $request,
+        StoreVehicleAnnouncementService $service
+    )
     {
-        //
+        $data = $request->validated();
+        $vehicleAnnouncement = $service->run($data);
+
+        return response()->json(new VehicleAnnouncementResource($vehicleAnnouncement),201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(VehicleAnnouncement $vehicleAnnouncement)
+    public function update(
+        UpdateVehicleAnnouncementRequest $request,
+        UpdateVehicleAnnouncementService $service,
+        VehicleAnnouncement $vehicleAnnouncement
+    )
     {
-        //
+        $data = $request->validated();
+        $vehicleAnnouncement = $service->run($vehicleAnnouncement, $data);
+
+        return response()->json(new VehicleAnnouncementResource($vehicleAnnouncement), 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, VehicleAnnouncement $vehicleAnnouncement)
+    public function destroy(
+        DestroyVehicleAnnouncementService $service,
+        VehicleAnnouncement $vehicleAnnouncement
+    )
     {
-        //
-    }
+        $response = $service->run($vehicleAnnouncement);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(VehicleAnnouncement $vehicleAnnouncement)
-    {
-        //
+        return response()->json($response);
     }
 }
